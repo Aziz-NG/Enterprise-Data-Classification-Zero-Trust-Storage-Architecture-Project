@@ -65,7 +65,7 @@ I defined a classification schema within Microsoft Purview to handle diverse dat
 ### ☁️ Part 2: Secure Storage & Network Isolation
 
 ### 🔐 Control 1: Encryption
-Storage encryption enabled viacustomer-managed keys (CMK)
+Storage encryption enabled via a customer-managed key (CMK)
 
 **Risk Mitigated:** Unauthorized data access at rest
 > img/[Encryption-CMK.png](https://github.com/Aziz-NG/Data-Classification-Zero-Trust-Storage-Architecture-Project/blob/main/img/Encryption-CMK.png)
