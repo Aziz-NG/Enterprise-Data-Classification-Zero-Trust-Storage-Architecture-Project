@@ -55,6 +55,8 @@ I defined a classification schema within Microsoft Purview to handle diverse dat
 
 (img/[Confidential-Label-Settings.png](https://github.com/Aziz-NG/Data-Classification-Zero-Trust-Storage-Architecture-Project/blob/main/img/Confidential-Label-Settings.png)
 
+(img/[PII-Label-Settings.png](https://github.com/Aziz-NG/Data-Classification-Zero-Trust-Storage-Architecture-Project/blob/main/img/PII-Label-Settings.png)
+
 
 ---
 
