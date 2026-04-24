@@ -51,11 +51,13 @@ I defined a classification schema within Microsoft Purview to handle diverse dat
 
 > **Validation Note:** While M365 client-side enforcement (Word/Excel) was out of scope, all encryption policies and label scopes were successfully validated within the Purview control plane.
 
-(img/[Labels-List.png](https://github.com/Aziz-NG/Data-Classification-Zero-Trust-Storage-Architecture-Project/blob/main/img/Labels-List.png))
+img/[Labels-List.png](https://github.com/Aziz-NG/Data-Classification-Zero-Trust-Storage-Architecture-Project/blob/main/img/Labels-List.png)
 
-(img/[Confidential-Label-Settings.png](https://github.com/Aziz-NG/Data-Classification-Zero-Trust-Storage-Architecture-Project/blob/main/img/Confidential-Label-Settings.png)
+img/[Confidential-Label-Settings.png](https://github.com/Aziz-NG/Data-Classification-Zero-Trust-Storage-Architecture-Project/blob/main/img/Confidential-Label-Settings.png)
 
-(img/[PII-Label-Settings.png](https://github.com/Aziz-NG/Data-Classification-Zero-Trust-Storage-Architecture-Project/blob/main/img/PII-Label-Settings.png)
+img/[PII-Label-Settings.png](https://github.com/Aziz-NG/Data-Classification-Zero-Trust-Storage-Architecture-Project/blob/main/img/PII-Label-Settings.png)
+
+img/[Label-Policy.png](https://github.com/Aziz-NG/Data-Classification-Zero-Trust-Storage-Architecture-Project/blob/main/img/Label-Policy.png)
 
 
 ---
@@ -63,12 +65,13 @@ I defined a classification schema within Microsoft Purview to handle diverse dat
 ### ☁️ Part 2: Secure Storage & Network Isolation
 
 #### 🚫 Public Access Mitigation
-To eliminate "Leaky Bucket" syndrome, public access was disabled at the storage account level.
-* **Test:** Attempted to access a blob via its public URL from an external browser.
+To eliminate "Leaky Bucket" syndrome, public access was disabled at the storage account level. > img/[Public-Access-disabled.png](https://github.com/Aziz-NG/Data-Classification-Zero-Trust-Storage-Architecture-Project/blob/main/img/Public-Access-disabled.png)
+* **Test:** Attempted to get access to a blob in the portal and via storage explorer.
 * **Result:** **Access Denied.** The resource remained unreachable from the public internet.
+img/[Blob-Access-Denied.png](https://github.com/Aziz-NG/Data-Classification-Zero-Trust-Storage-Architecture-Project/blob/main/img/Blob-Access-Denied.png)    img/[Storage-Explorer-Failure.png](https://github.com/Aziz-NG/Data-Classification-Zero-Trust-Storage-Architecture-Project/blob/main/img/Storage-Explorer-Failure.png)
 
 #### 🌐 Private Endpoint Implementation
-A Private Endpoint was provisioned to give the storage account a private IP address within a secured VNet.
+A Private Endpoint was provisioned to give the storage account a private IP address within a secured VNet. > img/[Private-Endpoint.png](https://github.com/Aziz-NG/Data-Classification-Zero-Trust-Storage-Architecture-Project/blob/main/img/Private-Endpoint.png)
 * **Validation:** Access was tested via a Virtual Machine (VM) located inside the VNet.
 * **Result:** Using Azure Storage Explorer, I successfully connected to the storage and performed data operations (Upload/Download), proving that the private path was functional.
 
