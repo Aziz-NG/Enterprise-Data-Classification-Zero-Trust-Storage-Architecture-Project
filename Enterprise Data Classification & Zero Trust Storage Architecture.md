@@ -51,6 +51,9 @@ I defined a classification schema within Microsoft Purview to handle diverse dat
 
 > **Validation Note:** While M365 client-side enforcement (Word/Excel) was out of scope, all encryption policies and label scopes were successfully validated within the Purview control plane.
 
+![EST](img/Confidential-Label-Settings.png)
+
+
 ---
 
 ### ☁️ Part 2: Secure Storage & Network Isolation
