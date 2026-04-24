@@ -86,7 +86,7 @@ A Zero Trust architecture is incomplete without visibility. I implemented Diagno
 #### Activity Verification via KQL
 Using Kusto Query Language (KQL) in Azure Monitor, I verified the telemetry:
 * **Audit Success:** Logs confirmed legitimate file operations from the internal IP.
-* **Audit Failure:** Logs captured blocked connection attempts, providing the necessary data for incident response.
+* **Audit Failure:** Logs captured failed connection attempts, providing the necessary data for incident response. > img/[Logs-Failure.png](https://github.com/Aziz-NG/Data-Classification-Zero-Trust-Storage-Architecture-Project/blob/main/img/Logs-Failure.png)
 
 ---
 
