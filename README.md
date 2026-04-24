@@ -1,1 +1,86 @@
+Enterprise Data Classification & Zero Trust Storage Architecture
+Azure Infrastructure Security | Microsoft Purview | Compliance Logging
+🛡️ Executive Summary
+This project demonstrates the design and validation of a cloud-native data protection architecture using Microsoft Purview and Azure. The project shifts away from traditional perimeter security by implementing a layered model focused on data classification, strict network isolation via Private Endpoints, and comprehensive audit logging.
 
+By disabling public access and routing all traffic through a private backbone, this architecture ensures that data assets are invisible to the public internet. The implementation concludes with a verified audit trail in Azure Monitor, satisfying the "Monitoring and Measurement" requirements of ISO 27001 and SOC 2.
+
+🎯 Project Objectives
+Data Governance: Classify data assets based on sensitivity (Public, Confidential, PII) using Purview.
+
+Network Isolation: Eliminate the public attack surface of Azure Storage using Private Endpoints.
+
+Audit & Visibility: Implement diagnostic logging to track all data plane activities (Read/Write/Delete).
+
+Compliance Mapping: Align technical controls with NIST, ISO 27001, SOC 2, and Quebec Bill 25.
+
+🏗️ Architecture & Component Overview
+Governance: Microsoft Purview (Sensitivity Labeling & Policy Design)
+
+Storage Layer: Azure Blob Storage (Isolated)
+
+Network Security: Virtual Network (VNet) & Private Endpoints
+
+Monitoring: Azure Monitor & Log Analytics (Diagnostic Logging)
+
+🔐 Part 1: Data Classification Strategy
+I defined a classification schema within Microsoft Purview to handle diverse data sensitivity levels:
+
+Label	Rationale	Technical Control
+Public	Low risk; non-sensitive.	No restriction; minimal friction.
+Confidential	Internal business data.	Encryption + Watermarking (Policy side).
+PII	Highly sensitive personal info.	Strict encryption + Regulatory scoping.
+Validation Note: While M365 client-side enforcement (Word/Excel) was out of scope, all encryption policies and label scopes were successfully validated within the Purview control plane.
+
+☁️ Part 2: Secure Storage & Network Isolation
+🚫 Public Access Mitigation
+To eliminate "Leaky Bucket" syndrome, public access was disabled at the storage account level.
+
+Test: Attempted to access a blob via its public URL from an external browser.
+
+Result: Access Denied. The resource remained unreachable from the public internet.
+
+🌐 Private Endpoint Implementation
+A Private Endpoint was provisioned to give the storage account a private IP address within a secured VNet.
+
+Validation: Access was tested via a Virtual Machine (VM) located inside the VNet.
+
+Result: Using Azure Storage Explorer, I successfully connected to the storage and performed data operations (Upload/Download), proving that the private path was functional.
+
+🔍 Part 3: Monitoring & Auditability
+A Zero Trust architecture is incomplete without visibility. I implemented Diagnostic Settings to ensure a full audit trail of all data interactions.
+
+1. Configuration
+Enabled: StorageRead, StorageWrite, and StorageDelete logs.
+
+Destination: Data was streamed to a Log Analytics Workspace.
+
+2. Activity Generation & Verification
+I performed the following actions to test the logging pipeline:
+
+Successful Upload/Download: Performed via the VM within the VNet.
+
+Unauthorized Access Attempt: Performed from an external network.
+
+3. Log Analysis
+Using Kusto Query Language (KQL) in Azure Monitor, I verified the telemetry:
+
+Audit Success: Logs confirmed legitimate file operations from the internal IP.
+
+Audit Failure: Logs captured blocked connection attempts, providing the necessary data for incident response.
+
+📊 Compliance Framework Mapping
+Framework	Control Mapping	implementation
+NIST 800-53	SC-7, AU-2	Boundary protection and event logging.
+ISO 27001	A.12.4, A.13	Logging/Monitoring and Network Security.
+SOC 2	Confidentiality	Restricting access via network controls and encryption.
+Quebec Bill 25	PII Safeguards	Protection of PII and auditability of access.
+
+🧨 Threat Modeling
+Threat	Control	Result
+Public exposure	Public access disabled	Blocked
+Data exfiltration	Private endpoint	Blocked
+Unauthorized access	Label encryption	Restricted
+
+🧾 Key Takeaways
+This project validates that Defense in Depth is achieved through the combination of data classification, network cloaking, and robust logging. Even without identity-based RBAC, the use of Private Endpoints significantly reduces the threat landscape by removing the public endpoint entirely, while Azure Monitor provides the continuous oversight required by modern privacy laws like Quebec's Bill 25.
